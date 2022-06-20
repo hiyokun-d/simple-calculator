@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Calculator</title>
+        <link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="calculator card">
+            <div class="display">
+                <h1 class="displayNumber">0</h1>
+            </div>
+			<div class="button-list">
+				<div class="button">7</div>
+				<div class="button">8</div>
+				<div class="button">9</div>
+				<div class="button negative">+/-</div>
+			</div>
+
+			<div class="button-list">
+				<div class="button">4</div>
+				<div class="button">5</div>
+				<div class="button">6</div>
+				<div class="button operator">-</div>
+			</div>
+
+			<div class="button-list">
+				<div class="button">1</div>
+				<div class="button">2</div>
+				<div class="button">3</div>
+				<div class="button operator">+</div>
+			</div>
+
+			<div class="button-list">
+				<div class="button clear">CE</div>
+				<div class="button">0</div>
+				<div class="button equals double">=</div>
+			</div>
+		</div>
+
+        <script>
+            var calculator = document.querySelector('.calculator');
+            var display = document.querySelector('.display');
+            var displayNumber = document.querySelector('.displayNumber');
+            var buttonList = document.querySelectorAll('.button-list');
+            var button = document.querySelectorAll('.button');
+            var operator = document.querySelectorAll('.operator');
+            var equals = document.querySelector('.equals');
+            var clear = document.querySelector('.clear');
+            var negative = document.querySelector('.negative');
+            var displayValue = '';
+            var operatorValue = '';
+            var firstValue = '';
+            var secondValue = '';
+            var result = '';
+
+            //make a simple calculator just for lesson for my student
+            for(var i = 0; i < buttonList.length; i++) {
+                buttonList[i].addEventListener('click', function(e) {
+                    if(e.target.classList.contains('button')) {
+                        if(displayValue.length < 10) {
+                            if(displayValue === '0') {
+                                displayValue = '';
+                            }
+                                displayValue += e.target.innerHTML;
+
+                            displayNumber.innerHTML = displayValue;
+                        }
+                    }
+                    if(e.target.classList.contains('operator')) {
+                        operatorValue = e.target.innerHTML;
+                        firstValue = displayValue;
+                        displayValue = '0';
+                        displayNumber.innerHTML = displayValue;
+                    }
+                    if(e.target.classList.contains('equals')) {
+                        secondValue = displayValue;
+                        displayValue = '';
+                        displayNumber.innerHTML = displayValue;
+                        if(operatorValue == '+') {
+                            result = parseInt(firstValue) + parseInt(secondValue);
+                        }
+                        if(operatorValue == '-') {
+                            result = parseInt(firstValue) - parseInt(secondValue);
+                        }
+                        if(operatorValue == '*') {
+                            result = parseInt(firstValue) * parseInt(secondValue);
+                        }
+                        if(operatorValue == '/') {
+                            result = parseInt(firstValue) / parseInt(secondValue);
+                        }
+                        displayValue = result;
+                        displayNumber.innerHTML = displayValue;
+                    }
+                    if(e.target.classList.contains('clear')) {
+                        displayValue = '0';
+                        displayNumber.innerHTML = displayValue;
+                    }
+                    if(e.target.classList.contains('negative')) {
+                        displayValue = displayValue * -1;
+                        displayNumber.innerHTML = displayValue;
+                    }
+                });
+            }
+        </script>
+	</body>
+</html>
